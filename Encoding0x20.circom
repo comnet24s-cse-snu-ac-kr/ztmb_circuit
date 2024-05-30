@@ -1,4 +1,4 @@
-pragma circom 2.0.0;
+pragma circom 2.1.9;
 include "circomlib/circuits/poseidon.circom";
 include "@zk-email/circuits/utils/bytes.circom";
 

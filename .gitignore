@@ -3,3 +3,6 @@
 *.r1cs
 *.zkey
 *.wtns
+*.json
+*.sym
+lib/*
