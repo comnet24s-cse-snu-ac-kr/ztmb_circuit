@@ -1,14 +1,12 @@
 pragma circom 2.1.9;
 
-include "aes-circom/circuits/aes_ctr.circom";
-// include "hash_circuits/circuits/sha2/sha384/sha384_hash_bytes.circom";
 include "../Helper.circom";
 include "../Encoding0x20.circom";
 include "../ReplaceQname.circom";
 include "../ExtractQname.circom";
 include "../EncryptPacket.circom";
 
-template TLSProofGen() {
+template TLSAESProof() {
     // Encryption
     signal input key[32]; //** Byte array, 256 bit
     signal input nonce[12]; //** Byte array, 96 bit
@@ -37,18 +35,6 @@ template TLSProofGen() {
 
     signal packet_encoded[512] <== replace_qname.out_packet;
 
-    // MAC
-    // component sha384 = Sha384_hash_bytes_digest(464);
-    // sha384.inp_bytes <== packet_encoded;
-
-    // signal packet_encoded_with_mac[512];
-    // for(var i=0; i<464; i++) {
-    //     packet_encoded_with_mac[i] <== packet_encoded[i];
-    // }
-    // for(var i=0; i<48; i++) {
-    //     packet_encoded_with_mac[464+i] <== sha384.hash_bytes[i];
-    // }
-
     // Encrypt
     component packet_encryption = EncryptPacket();
     packet_encryption.key_byte <== key;
@@ -57,7 +43,7 @@ template TLSProofGen() {
     packet_encryption.in_byte <== packet_encoded;
 
     ciphertext === packet_encryption.out_byte;
+
 }
 
 
-component main {public [ciphertext]} = TLSProofGen();

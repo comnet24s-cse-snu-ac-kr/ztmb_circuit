@@ -19,19 +19,25 @@ template EncryptPacket() {
     signal out[4096];
     signal output out_byte[512];
 
-    component num2Bits[5];
-    num2Bits[0] = MultiNum2Bits(512);
-    num2Bits[0].in <== in_byte;
-    in <== num2Bits[0].out;
-    num2Bits[1] = MultiNum2Bits(32);
-    num2Bits[1].in <== key_byte;
-    key <== num2Bits[1].out;
-    num2Bits[2] = MultiNum2Bits(12);
-    num2Bits[2].in <== nonce_byte;
-    nonce <== num2Bits[2].out;
-    num2Bits[3] = MultiNum2Bits(4);
-    num2Bits[3].in <== counter_byte;
-    counter <== num2Bits[3].out;
+    component num2Bits;
+    num2Bits = MultiNum2Bits(512);
+    num2Bits.in <== in_byte;
+    in <== num2Bits.out;
+
+    component num2Bits_2;
+    num2Bits_2 = MultiNum2Bits(32);
+    num2Bits_2.in <== key_byte;
+    key <== num2Bits_2.out;
+
+    component num2Bits_3;
+    num2Bits_3 = MultiNum2Bits(12);
+    num2Bits_3.in <== nonce_byte;
+    nonce <== num2Bits_3.out;
+
+    component num2Bits_4;
+    num2Bits_4 = MultiNum2Bits(4);
+    num2Bits_4.in <== counter_byte;
+    counter <== num2Bits_4.out;
     
 
     // AES CTR decryption

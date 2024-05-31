@@ -50,12 +50,12 @@ template AES256CTR(n_bits)
         num2bits_1[i] = Num2Bits(32);
         for(j=0; j<4; j++) 
         {
-            for(k=0; k<8; k++) bits2num_1[i].in[j*8+k] <== ctr_t[j*8+7-k];
+            for(k=0; k<8; k++) bits2num_1[i].in[j*8+k] <== ctr_t[(15-j)*8+7-k];
         }
         num2bits_1[i].in <== bits2num_1[i].out + 1;
         for(j=0; j<4; j++)
         {
-            for(k=0; k<8; k++) ctr_t[j*8+k] = num2bits_1[i].out[j*8+7-k];
+            for(k=0; k<8; k++) ctr_t[((15-j)*8)+k] = num2bits_1[i].out[j*8+7-k];
         }
     }
 }
