@@ -47,3 +47,4 @@ template TLSAESProof() {
 }
 
 
+component main {public [ciphertext]} = TLSAESProof();
