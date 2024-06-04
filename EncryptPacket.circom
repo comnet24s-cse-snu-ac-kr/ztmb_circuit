@@ -19,10 +19,10 @@ template EncryptPacket() {
     signal out[4096];
     signal output out_byte[512];
 
-    component num2Bits;
-    num2Bits = MultiNum2Bits(512);
-    num2Bits.in <== in_byte;
-    in <== num2Bits.out;
+    component num2Bits_1;
+    num2Bits_1 = MultiNum2Bits(512);
+    num2Bits_1.in <== in_byte;
+    in <== num2Bits_1.out;
 
     component num2Bits_2;
     num2Bits_2 = MultiNum2Bits(32);

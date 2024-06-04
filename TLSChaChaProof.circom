@@ -92,3 +92,5 @@ template TLSChaChaProof() {
         }
     }
 }
+
+component main = TLSChaChaProof();

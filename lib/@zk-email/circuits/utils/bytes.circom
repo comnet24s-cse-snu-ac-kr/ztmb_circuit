@@ -7,7 +7,8 @@ include "./constants.circom";
 include "./functions.circom";
 
 function computeIntChunkLength(byteLength) {
-    var packSize = MAX_BYTES_IN_FIELD();
+    // var packSize = MAX_BYTES_IN_FIELD();
+    var packSize = 31;
 
     var remain = byteLength % packSize;
     var numChunks = (byteLength - remain) / packSize;
@@ -25,7 +26,9 @@ function computeIntChunkLength(byteLength) {
 /// @input in: the input byte array
 /// @output out: the output integer array
 template PackBytes(maxBytes) {
-    var packSize = MAX_BYTES_IN_FIELD();
+    // var packSize = MAX_BYTES_IN_FIELD();
+    var packSize = 31;
+
     var maxInts = computeIntChunkLength(maxBytes);
 
     signal input in[maxBytes];
@@ -39,7 +42,7 @@ template PackBytes(maxBytes) {
 
             // Copy the previous value if we are out of bounds - we take last item as final result
             if(idx >= maxBytes) {
-                intSums[i][j] <== intSums[i][j-1];
+                intSums[i][j] <== intSums[i][j-1] * (1 << (8)) + 0;
             } 
             // First item of each chunk is the byte itself
             else if (j == 0){
@@ -47,7 +50,7 @@ template PackBytes(maxBytes) {
             }
             // Every other item is 256^j * byte
             else {
-                intSums[i][j] <== intSums[i][j-1] + (1 << (8*j)) * in[idx];
+                intSums[i][j] <== intSums[i][j-1] * (1 << (8)) + in[idx];
             }
         }
     }

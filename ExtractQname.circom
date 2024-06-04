@@ -18,10 +18,11 @@ template DeserializePacket() {
         character[i] <-- (skip_index == index) * 46 + (skip_index != index) * packet[index];
         (character[i] - 46) * (character[i] - packet[index]) === 0;
 
-        qname[i] <-- keep_reading * character[i];
-        (qname[i] - character[i]) * (qname[i]) === 0;
-
-        skip_index = packet[index] + skip_index + 1; // packet[index] must be a number
+        qname[i] <-- keep_reading * character[i] + (1 - keep_reading) * 46;
+        (qname[i] - character[i]) * (qname[i] - 46) === 0;
+        if (index == skip_index) {
+            skip_index = packet[index] + skip_index + 1; // packet[index] must be a number
+        }
     }
 }
 
@@ -30,10 +31,12 @@ template ExtractQname(N) {
     signal output qname[255];
 
     component deserialize = DeserializePacket();
-    for (var i = 16; i < 271; i++) {
-        deserialize.packet[i-16] <== packet[i];
+    for (var i = 12; i < 267; i++) {
+        deserialize.packet[i-12] <== packet[i];
     }
     qname <== deserialize.qname;
 }
 
 // component main = ExtractQname();
+// snarkjs groth16 setup ExtractQnameTest.r1cs pot12_final.ptau multiplier2_0000.zkey
+// snarkjs zkey contribute multiplier2_0000.zkey multiplier2_0001.zkey --name="1st Contributor Name" -v
