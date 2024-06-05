@@ -1,5 +1,5 @@
 pragma circom 2.1.9;
-include "./ReverseBitify.circom";
+include "../circuits/ReverseBitify.circom";
 
 template MultiNum2Bits(N) {
     signal input in[N];

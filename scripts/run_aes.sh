@@ -1,6 +1,6 @@
 mkdir result
 cd result
-circom ../../TLSAESProof.circom --r1cs --wasm -l ../../lib
+circom ../../circuits/TLSAESProof.circom --r1cs --wasm -l ../../lib
 
 cd TLSAESProof_js/
 node generate_witness.js TLSAESProof.wasm ../../../inputs/input.json witness.wtns

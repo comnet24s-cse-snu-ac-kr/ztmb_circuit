@@ -1,3 +1,3 @@
-include "../../EncryptPacket.circom";
+include "../../circuits/EncryptPacket.circom";
 
 component main = EncryptPacket();

@@ -1,5 +1,5 @@
 pragma circom 2.1.9;
-include "./Helper.circom";
+include "../circuits/Helper.circom";
 include "aes-circom/circuits/aes_ctr.circom";
 
 template EncryptPacket() {

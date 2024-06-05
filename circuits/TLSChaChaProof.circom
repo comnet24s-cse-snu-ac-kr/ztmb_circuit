@@ -1,11 +1,11 @@
 pragma circom 2.1.9;
 
 include "chacha20/chacha20-bits.circom";
-include "../Helper.circom";
-include "../Encoding0x20.circom";
-include "../ReplaceQname.circom";
-include "../ExtractQname.circom";
-include "../EncryptPacket.circom";
+include "../circuits/Helper.circom";
+include "../circuits/Encoding0x20.circom";
+include "../circuits/ReplaceQname.circom";
+include "../circuits/ExtractQname.circom";
+include "../circuits/EncryptPacket.circom";
 
 template TLSChaChaProof() {
     // Encryption

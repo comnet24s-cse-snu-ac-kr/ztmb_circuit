@@ -1,6 +1,6 @@
 mkdir result
 cd result
-circom ../../TLSCHACHAProof.circom --r1cs --wasm -l ../../lib
+circom ../../circuits/TLSCHACHAProof.circom --r1cs --wasm -l ../../lib
 
 
 cd TLSCHACHAProof_js/
