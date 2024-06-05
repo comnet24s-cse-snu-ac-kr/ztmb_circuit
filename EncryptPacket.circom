@@ -42,23 +42,24 @@ template EncryptPacket() {
 
     // AES CTR decryption
     component aes = AES_CTR(4096);
-    for(var i = 0; i < 32 * 8; i++) {
+    var i = 0;
+    for(i = 0; i < 32 * 8; i++) {
         aes.K1[i] <== key[i];
     }
 
     // set counter
-    for(var i = 0; i < 12 * 8; i++) {
+    for(i = 0; i < 12 * 8; i++) {
         aes.CTR[i] <== nonce[i];
     }
-    for(var i = 0; i < 4 * 8; i++) {
+    for(i = 0; i < 4 * 8; i++) {
         aes.CTR[i + 12*8] <== counter[i];
     }
 
-    for(var i = 0; i < 4096; i++) {
+    for(i = 0; i < 4096; i++) {
         aes.MSG[i] <== in[i];
     }
 
-    for(var i = 0; i < 4096; i++) {
+    for(i = 0; i < 4096; i++) {
         out[i] <== aes.CT[i];
         }
 

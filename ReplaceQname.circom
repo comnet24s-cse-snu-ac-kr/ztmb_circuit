@@ -14,5 +14,3 @@ template ReplaceQname(N) {
         }
     }
 }
-
-// component main = ReplaceQname(512);
