@@ -1,6 +1,10 @@
 ./ceremony_powersoftau.sh
 
-./compile_circuit.sh
+# ./compile_circuit.sh
+circom circuit.circom --r1cs --wasm --sym
+# View circuit info
+#snarkjs r1cs info circuit.r1cs
+#snarkjs r1cs print circuit.r1cs circuit.sym
 
 node generate_input.js > input.json
 
