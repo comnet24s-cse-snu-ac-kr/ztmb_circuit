@@ -1,0 +1,23 @@
+./ceremony_powersoftau.sh
+
+./compile_circuit.sh
+
+node generate_input.js > input.json
+
+# Create witness
+cd circuit_js
+node generate_witness.js circuit.wasm ../input.json ../witness.wtns
+cd ..
+
+# Setup plonk
+# power = 16
+snarkjs plonk setup circuit.r1cs pot16_final.ptau circuit_final.zkey
+
+# Get pk and export the vk
+snarkjs zkey export verificationkey circuit_final.zkey verification_key.json
+
+# Create proof
+snarkjs plonk prove circuit_final.zkey witness.wtns proof.json public.json
+
+# Verify proof
+snarkjs plonk verify verification_key.json public.json proof.json 
