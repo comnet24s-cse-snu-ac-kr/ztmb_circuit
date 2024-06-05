@@ -1,6 +1,8 @@
 pragma circom 2.0.0;
 
 include "./circuits/smt/smtverifier.circom";
+include "./circuits/poseidon.circom";
+include "./circuits/comparators.circom";
 
 template ClaimSMT(nLevels) {
     signal input enabled;
@@ -14,7 +16,24 @@ template ClaimSMT(nLevels) {
     signal input value;
     signal input fnc;
 
+    // poseidon - input
+	signal private input p_secret;
+	signal private input p_key;
+	signal input nullifier;
+
+
     var i;
+
+    // poseidon
+    component nullifierCmp = Poseidon(2, 6, 8, 57);
+	nullifierCmp.inputs[0] <== p_key;
+	nullifierCmp.inputs[1] <== p_secret;
+
+	component nullifierCheck = IsEqual();
+	nullifierCheck.in[0] <== nullifierCmp.out;
+	nullifierCheck.in[1] <== nullifier;
+	nullifierCheck.out === 1;
+
 
     component smt = SMTVerifier(nLevels);
     smt.enabled <== enabled;
