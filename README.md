@@ -2,6 +2,7 @@
 ## Prerequisites
 - circom 2.1.9
 - node 20.13.1
+- snarkjs 0.7.4
 
 ## Ptau Global Ceremony
 To initiate the setup for global parameters, navigate to the scripts directory and execute the setup scripts. This step is essential and must be completed before running any scripts related to proof generation.
