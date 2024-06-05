@@ -3,5 +3,5 @@
 *.r1cs
 *.zkey
 *.wtns
-*.json
+scripts/*.json
 *.sym
