@@ -2,6 +2,8 @@ const JSONbig = require("json-bigint-native");
 const path = require("path");
 const Scalar = require("ffjavascript").Scalar;
 const newMemEmptyTrie = require("circomlibjs").newMemEmptyTrie;
+const buildPoseidon = require("circomlibjs").buildPoseidon;
+const crypto = require("crypto");
 
 const nLevels = 10; // TODO: Modify this.
 
@@ -65,12 +67,30 @@ async function generateExclusion(tree, _key) {
 const main = async() => {
   let Fr;
   let tree;
+  let poseidon;
 
   tree = await newMemEmptyTrie();
   Fr = tree.F;
-  await tree.insert(7,77);
-  await tree.insert(8,88);
-  await tree.insert(32,3232);
+  // await tree.insert(7,77);
+  // await tree.insert(8,88);
+  // await tree.insert(32,3232);
+
+  for( var index = 0; index < 5; index++ ) {
+    // generate sha256 signature
+    const testStr = "attacker_dns_tunneling_" + index;
+    const b = Buffer.from(testStr, "utf8");
+    const hash = crypto.createHash("sha256")
+        .update(b)
+        .digest("hex");
+    const hash_bi = BigInt(`0x${hash.substring(0,16)}`);
+
+    // poseidon
+    poseidon = await buildPoseidon();
+    Fp = poseidon.F;
+    const res2 = poseidon([hash_bi]); //should be value of signature
+    
+    await tree.insert(index, res2);
+  }
 
   //generateInclusion(tree, 7);
   generateExclusion(tree, 9);
