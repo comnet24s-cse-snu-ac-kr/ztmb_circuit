@@ -1,0 +1,10 @@
+services:
+  circom:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ghcr.io/comnet24s-cse-snu-ac-kr/ztmb_circuit:latest
+    environment:
+      - "INPUT_PATH=/mnt/host/examples.elastic.github.com-00000.json"
+    volumes:
+      - "./:/mnt/host"
