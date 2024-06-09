@@ -2,7 +2,7 @@
 
 INPUT="../inputs/demo_benign.json"
 
-echo "----- Processing ${INPUT} -----"
+echo "----- Processing '${INPUT}' -----"
 echo -n "Generating witness... "
 time -f '%e' -o wtns.time node TLSAESSigProof_js/generate_witness.js TLSAESSigProof_js/TLSAESSigProof.wasm ${INPUT} witness.wtns &> wtns.log
 echo "Done."
