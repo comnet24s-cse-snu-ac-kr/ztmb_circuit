@@ -5,3 +5,5 @@
 *.wtns
 scripts/*.json
 *.sym
+*.log
+*.time
