@@ -77,8 +77,9 @@ const main = async() => {
 
   for( var index = 0; index < 5; index++ ) {
     // generate sha256 signature
-    const testStr = "attacker_dns_tunneling_" + index;
-    const b = Buffer.from(testStr, "utf8");
+    const byteStream = new Uint8Array([0x01, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01]);
+    const indexBuffer = Buffer.from(index.toString(), 'utf8');
+    const b = Buffer.concat([byteStream, indexBuffer]);
     const hash = crypto.createHash("sha256")
         .update(b)
         .digest("hex");
