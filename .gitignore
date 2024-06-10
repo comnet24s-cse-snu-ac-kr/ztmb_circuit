@@ -5,3 +5,8 @@
 *.wtns
 scripts/*.json
 *.sym
+*.log
+*.time
+*/**/verification_key.json
+*/**/proof.json
+*/**/public.json
