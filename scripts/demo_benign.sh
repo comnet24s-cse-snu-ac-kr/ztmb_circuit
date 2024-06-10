@@ -1,18 +1,24 @@
 #!/bin/sh
 
 INPUT="../inputs/demo_benign.json"
+PROOF="./proof.json"
 
 echo "----- Processing '${INPUT}' -----"
 echo -n "Generating witness... "
-time -f '%e' -o wtns.time node TLSAESSigProof_js/generate_witness.js TLSAESSigProof_js/TLSAESSigProof.wasm ${INPUT} witness.wtns &> wtns.log
-echo "Done."
+if `time -f '%e' -o wtns.time node TLSAESSigProof_js/generate_witness.js TLSAESSigProof_js/TLSAESSigProof.wasm ${INPUT} witness.wtns &> wtns.log`; then
+  echo "Done."
+else 
+  echo "Failed"
+  cat wtns.log 1>&2
+  exit 1
+fi
 
 echo -n "Generating prove... "
 time -f '%e' -o prove.time snarkjs groth16 prove TLSAESSigProof_0000.zkey witness.wtns proof.json public.json &> prove.log
 echo "Done."
 
-echo -n "Verifying... "
-time -f '%e' -o verify.time snarkjs groth16 verify verification_key.json public.json proof.json &> verify.log
+echo -n "Verifying '${PROOF}'... "
+time -f '%e' -o verify.time snarkjs groth16 verify verification_key.json public.json ${PROOF} &> verify.log
 echo "Done."
 
 WTNS_TIME=$(cat wtns.time | tail -n1)
