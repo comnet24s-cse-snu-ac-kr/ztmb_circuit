@@ -1,6 +1,6 @@
 #!/bin/sh
 
-INPUT="../inputs/sig_blacklist_input.json"
+INPUT="./benign.json"
 PROOF="./proof.json"
 
 echo "----- Processing '${INPUT}' -----"

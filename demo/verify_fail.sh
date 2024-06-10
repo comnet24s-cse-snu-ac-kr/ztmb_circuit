@@ -1,7 +1,7 @@
 #!/bin/sh
 
-INPUT="../inputs/demo_benign.json"
-PROOF="./proof.json"
+INPUT="./benign.json"
+PROOF="./wrong_proof.json"
 
 echo "----- Processing '${INPUT}' -----"
 echo -n "Generating witness... "
